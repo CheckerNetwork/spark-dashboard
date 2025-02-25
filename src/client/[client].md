@@ -4,9 +4,11 @@ title: Storage Provider Summary
 ---
 
 ```js
-import { LineGraph } from "../components/line-graph.js";
-import { getDateXDaysAgo } from "../utils/date-utils.js";
-const data = FileAttachment(`../data/${observable.params.client}-spark-rsr-summary.json`).json();
+import { LineGraph } from '../components/line-graph.js'
+import { getDateXDaysAgo } from '../utils/date-utils.js'
+const data = FileAttachment(
+  `../data/${observable.params.client}-spark-rsr-summary.json`,
+).json()
 ```
 
 <div class="hero">
@@ -18,10 +20,9 @@ const data = FileAttachment(`../data/${observable.params.client}-spark-rsr-summa
 <h4>Storage Client Spark RSR Summary</h4>
 <body>This section shows the storage client Spark Retrieval Success Rate Score summary. You can adjust the date range. Records start on the 25th February 2025.</body>
 
-
 ```js
-const start = view(Inputs.date({label: "Start", value: getDateXDaysAgo(180) }));
-const end = view(Inputs.date({label: "End", value: getDateXDaysAgo(1) }));
+const start = view(Inputs.date({ label: 'Start', value: getDateXDaysAgo(180) }))
+const end = view(Inputs.date({ label: 'End', value: getDateXDaysAgo(1) }))
 ```
 
 <h3>Stats for ${observable.params.client}</h3>

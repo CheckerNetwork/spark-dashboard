@@ -24,9 +24,7 @@ const SparkMinerRsrSummaries = FileAttachment(
 const SparkRetrievalTimes = FileAttachment(
   './data/spark-retrieval-timings.json',
 ).json()
-const SparkClientRates = FileAttachment(
-  './data/spark-clients-rsr.json'
-).json();
+const SparkClientRates = FileAttachment('./data/spark-clients-rsr.json').json()
 ```
 
 ```js
@@ -52,9 +50,13 @@ const tidySparkMinerRates = SparkMinerRates.sort(
     success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`,
   }
 })
-const tidySparkClientRates = SparkClientRates
-  .sort((recordA, recordB) => recordB.success_rate - recordA.success_rate)
-  .map(record => ({ ...record, success_rate: `${(record.success_rate * 100).toFixed(2)}%`,success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`}))
+const tidySparkClientRates = SparkClientRates.sort(
+  (recordA, recordB) => recordB.success_rate - recordA.success_rate,
+).map((record) => ({
+  ...record,
+  success_rate: `${(record.success_rate * 100).toFixed(2)}%`,
+  success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`,
+}))
 ```
 
 <div class="hero">
@@ -341,7 +343,11 @@ const searchMinerStats = view(
 <body>The following table shows the Spark RSR values calculated in aggregate for each Filecoin Storage Client over the past 30 days. Click on a client id to view stats about this storage provider.</body>
 
 ```js
-const searchClientStats = view(Inputs.search(tidySparkClientRates, {placeholder: "Search Storage Clients..."}));
+const searchClientStats = view(
+  Inputs.search(tidySparkClientRates, {
+    placeholder: 'Search Storage Clients...',
+  }),
+)
 ```
 
 <div class="card" style="padding: 0;">
