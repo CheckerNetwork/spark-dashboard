@@ -24,7 +24,7 @@ const start = view(Inputs.date({label: "Start", value: getDateXDaysAgo(180) }));
 const end = view(Inputs.date({label: "End", value: getDateXDaysAgo(1) }));
 ```
 
-<h3>Stats for ${observable.params.provider}</h3>
+<h3>Stats for ${observable.params.client}</h3>
 
 <div class="grid grid-cols" style="grid-auto-rows: 500px;">
   <div class="card">${
