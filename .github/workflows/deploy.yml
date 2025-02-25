@@ -2,9 +2,9 @@ name: Deploy Observable Dashboard to Cloudflare Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   schedule:
-    - cron: "0 20 * * *"
+    - cron: '0 20 * * *'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -19,28 +19,28 @@ jobs:
     environment: default
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Install Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-        cache: npm
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Build project
-      run: npm run build  # Assumes your project has a build script in package.json
-      env:
-        API_TOKEN: ${{ secrets.API_TOKEN }}
+      - name: Build project
+        run: npm run build # Assumes your project has a build script in package.json
+        env:
+          API_TOKEN: ${{ secrets.API_TOKEN }}
 
-    - name: Deploy to Cloudflare Pages
-      uses: cloudflare/pages-action@v1
-      with:
-        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        projectName: spark-dashboard  # Replace with your Cloudflare Pages project name
-        directory: ./dist  # Replace with your output directory after build
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: spark-dashboard # Replace with your Cloudflare Pages project name
+          directory: ./dist # Replace with your output directory after build
 
