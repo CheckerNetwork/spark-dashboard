@@ -1,13 +1,9 @@
 export const combine = (obj, target, keys) => {
-  const matches = Object
-    .keys(obj)
-    .filter(key => {
-      return keys.find(query => {
-        return typeof query === 'string'
-          ? key === query
-          : query.test(key)
-      })
+  const matches = Object.keys(obj).filter((key) => {
+    return keys.find((query) => {
+      return typeof query === 'string' ? key === query : query.test(key)
     })
+  })
   const clone = { ...obj }
   for (const key of matches) {
     delete obj[key]
@@ -25,4 +21,4 @@ export const move = (from, to, key) => {
   delete from[key]
 }
 
-export const clone = obj => JSON.parse(JSON.stringify(obj))
+export const clone = (obj) => JSON.parse(JSON.stringify(obj))

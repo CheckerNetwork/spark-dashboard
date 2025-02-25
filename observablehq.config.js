@@ -1,16 +1,18 @@
-import { jsonFetcher } from "./src/data/json-fetcher.js";
-import { getDateXDaysAgo } from "./src/utils/date-utils.js";
+import { jsonFetcher } from './src/data/json-fetcher.js'
+import { getDateXDaysAgo } from './src/utils/date-utils.js'
 
-const start = '2024-04-07';
-const end = getDateXDaysAgo(1);
+const start = '2024-04-07'
+const end = getDateXDaysAgo(1)
 
-const result = await jsonFetcher(`https://stats.filspark.com/miners/retrieval-success-rate/summary?from=${start}&to=${end}`)
-const providerPaths = result.map(provider => `/provider/${provider.miner_id}`);
+const result = await jsonFetcher(
+  `https://stats.filspark.com/miners/retrieval-success-rate/summary?from=${start}&to=${end}`,
+)
+const providerPaths = result.map((provider) => `/provider/${provider.miner_id}`)
 
 // See https://observablehq.com/framework/config for documentation.
 export default {
   // The app’s title; used in the sidebar and webpage titles.
-  title: "spark-dash",
+  title: 'Spark Dashboard',
 
   // The pages and sections in the sidebar. If you don’t specify this option,
   // all pages will be listed in alphabetical order. Listing pages explicitly
@@ -29,10 +31,10 @@ export default {
   head: '<link rel="icon" href="media/spark-with-bbox.png" type="image/png" sizes="32x32"><script defer data-domain="dashboard.filspark.com" src="https://plausible.io/js/script.js"></script>',
 
   // The path to the source root.
-  root: "src",
+  root: 'src',
 
   // Some additional configuration options and their defaults:
-  // theme: "default", // try "light", "dark", "slate", etc.
+  theme: 'dark', // try "light", "dark", "slate", etc.
   // header: "", // what to show in the header (HTML)
   // footer: "Built with Observable.", // what to show in the footer (HTML)
   sidebar: false, // whether to show the sidebar
@@ -44,4 +46,4 @@ export default {
   // typographer: false, // smart quotes and other typographic improvements
   // cleanUrls: true, // drop .html from URLs
   dynamicPaths: providerPaths,
-};
+}
