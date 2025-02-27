@@ -1,13 +1,14 @@
 ---
 toc: false
-title: Storage Provider Summary
+title: Storage Client Summary
 ---
 
 ```js
 import { LineGraph } from '../components/line-graph.js'
 import { getDateXDaysAgo } from '../utils/date-utils.js'
+
 const data = FileAttachment(
-  `../data/${observable.params.client}-spark-rsr-summary.json`,
+  `../data/${observable.params.client}-spark-client-rsr-summary.json`,
 ).json()
 ```
 

@@ -8,10 +8,8 @@ const {
 } = parseArgs({
   options: { client: { type: 'string' } },
 })
-
-const start = '2024-04-07'
+const start = '2025-02-25'
 const end = getDateXDaysAgo(1)
-
 const summary = await pRetry(
   () =>
     jsonFetcher(
@@ -19,5 +17,4 @@ const summary = await pRetry(
     ),
   { retries: 3 },
 )
-
 process.stdout.write(JSON.stringify(summary))
