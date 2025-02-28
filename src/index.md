@@ -130,7 +130,7 @@ const nonZeroMinersOverTime = Object.entries(SparkMinerRsrSummaries).flatMap(
             0,
           )
         : null,
-      type: 'HTTP only with HEAD support',
+      type: 'HTTP only w/ HEAD',
     },
   ],
 )
