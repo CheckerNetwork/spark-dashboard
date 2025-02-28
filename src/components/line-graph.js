@@ -18,6 +18,11 @@ export function LineGraph(events, { width, height, title, start, end } = {}) {
       success_rate_http: event.success_rate_http,
       type: 'HTTP only',
     })),
+    ...filteredEvents.map((event) => ({
+      day: event.day,
+      success_rate_http: event.success_rate_http,
+      type: 'HTTP only with HEAD support',
+    })),
   ]
 
   return Plot.plot({
@@ -37,6 +42,12 @@ export function LineGraph(events, { width, height, title, start, end } = {}) {
       Plot.lineY(combinedData, {
         x: 'day',
         y: 'success_rate_http',
+        stroke: 'type',
+        curve: 'linear',
+      }),
+      Plot.lineY(combinedData, {
+        x: 'day',
+        y: 'success_rate_http_head',
         stroke: 'type',
         curve: 'linear',
       }),
