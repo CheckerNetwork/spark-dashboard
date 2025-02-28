@@ -20,7 +20,7 @@ export function LineGraph(events, { width, height, title, start, end } = {}) {
     })),
     ...filteredEvents.map((event) => ({
       day: event.day,
-      success_rate_http: event.success_rate_http,
+      success_rate_http_head: event.success_rate_http_head,
       type: 'HTTP only w/ HEAD',
     })),
   ]
