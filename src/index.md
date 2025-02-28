@@ -124,7 +124,9 @@ const nonZeroMinersOverTime = Object.entries(SparkMinerRsrSummaries).flatMap(
     },
     {
       day: new Date(day),
-      count_succes_rate_http_head: miners.some((m) => m.success_rate_http_head != null)
+      count_succes_rate_http_head: miners.some(
+        (m) => m.success_rate_http_head != null,
+      )
         ? countAbove(
             miners.map((m) => m.success_rate_http_head),
             0,
