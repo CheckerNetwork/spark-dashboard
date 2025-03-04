@@ -1,7 +1,7 @@
 import { jsonFetcher } from './src/data/json-fetcher.js'
 import { getDateXDaysAgo } from './src/utils/date-utils.js'
 
-const startProviders = '2024-06-01'
+const startProviders = '2025-02-25'
 const startClients = '2025-02-25'
 const end = getDateXDaysAgo(1)
 
