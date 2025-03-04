@@ -6,10 +6,10 @@ const startClients = '2025-02-25'
 const end = getDateXDaysAgo(1)
 
 const providersSummary = await jsonFetcher(
-  `https://stats.filspark.com/miners/retrieval-success-rate/summary?from=${startProviders}&to=${end}`,
+  `https://stats.filspark.com/miners/retrieval-success-rate/summary?from=${startProviders}&to=${end}`
 )
-const clientsSummary= await jsonFetcher(
-  `https://stats.filspark.com/clients/retrieval-success-rate/summary?from=${startClients}&to=${end}`,
+const clientsSummary = await jsonFetcher(
+  `https://stats.filspark.com/clients/retrieval-success-rate/summary?from=${startClients}&to=${end}`
 )
 const providerPaths = providersSummary.map((provider) => `/provider/${provider.miner_id}`)
 const clientPaths = clientsSummary.map((client) => `/client/${client.client_id}`)
@@ -49,5 +49,5 @@ export default {
   // linkify: true, // convert URLs in Markdown to links
   // typographer: false, // smart quotes and other typographic improvements
   // cleanUrls: true, // drop .html from URLs
-  dynamicPaths: [...providerPaths, ...clientPaths],
+  dynamicPaths: [...providerPaths, ...clientPaths]
 }
