@@ -3,7 +3,7 @@ import { getDateXDaysAgo } from '../utils/date-utils.js'
 
 const summaries = {}
 
-for (let i = 201; i >= 1; i--) {
+for (let i = 100; i >= 1; i--) {
   const dayString = getDateXDaysAgo(i)
   summaries[dayString] = await jsonFetcher(
     `https://stats.filspark.com/miners/retrieval-success-rate/summary?from=${dayString}&to=${dayString}`,

@@ -1,7 +1,7 @@
 import { jsonFetcher } from './src/data/json-fetcher.js'
 import { getDateXDaysAgo } from './src/utils/date-utils.js'
 
-const startProviders = '2025-02-25'
+const startProviders = '2024-06-01'
 const startClients = '2025-02-25'
 const end = getDateXDaysAgo(1)
 
@@ -53,5 +53,5 @@ export default {
   // linkify: true, // convert URLs in Markdown to links
   // typographer: false, // smart quotes and other typographic improvements
   // cleanUrls: true, // drop .html from URLs
-  dynamicPaths: [...providerPaths],
+  dynamicPaths: [...clientPaths],
 }

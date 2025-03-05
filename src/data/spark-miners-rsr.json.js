@@ -7,4 +7,4 @@ const to = getDateXDaysAgo(1)
 const output = await jsonFetcher(
   `https://stats.filspark.com/miners/retrieval-success-rate/summary?from=${from}&to=${to}`,
 )
-process.stdout.write(JSON.stringify(output))
+process.stdout.write(JSON.stringify(output[0]))
