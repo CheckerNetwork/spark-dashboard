@@ -11,4 +11,3 @@ for (let i = 100; i >= 1; i--) {
 }
 
 process.stdout.write(JSON.stringify(summaries))
-0
