@@ -22,7 +22,15 @@ const data = FileAttachment(
 <body>This section shows the storage client Spark Retrieval Success Rate Score summary. You can adjust the date range. Records start on the 25th February 2025.</body>
 
 ```js
-const start = view(Inputs.date({ label: 'Start', value: getDateXDaysAgo(180) }))
+const startDate = getDateXDaysAgo(180)
+const minStartDate = '2025-02-25'
+const start = view(
+  Inputs.date({
+    label: 'Start',
+    value:
+      new Date(startDate) >= new Date(minStartDate) ? startDate : minStartDate,
+  }),
+)
 const end = view(Inputs.date({ label: 'End', value: getDateXDaysAgo(1) }))
 ```
 
