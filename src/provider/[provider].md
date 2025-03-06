@@ -42,8 +42,7 @@ const end = view(Inputs.date({ label: 'End', value: getDateXDaysAgo(1) }))
     <div class="card">
       ${Plot.plot({
       title: 'Time to First Byte (ms)',
-      // TODO: Change tick to month once we have more data
-      x: { type: 'utc', ticks: 'day' },
+      x: { type: 'utc', ticks: 'month' },
       y: { grid: true, zero: true },
       marks: [
         Plot.lineY(ttfbData, {
