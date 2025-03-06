@@ -340,7 +340,7 @@ const searchMinerStats = view(
 <div class="divider"></div>
 
 <h4>Spark Client RSR Table</h4>
-<body>The following table shows the Spark RSR values calculated in aggregate for each Filecoin Storage Client over the past 30 days. Click on a client id to view stats about this storage provider.</body>
+<body>The following table shows the Spark RSR values calculated in aggregate for each Filecoin Storage Client over the past 30 days. Click on a client id to view stats about this storage client.</body>
 
 ```js
 const searchClientStats = view(
