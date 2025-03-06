@@ -1,14 +1,22 @@
 import { jsonFetcher } from './src/data/json-fetcher.js'
 import { getDateXDaysAgo } from './src/utils/date-utils.js'
 
-const start = '2024-04-07'
+const startProviders = '2024-04-07'
+const startClients = '2025-02-25'
 const end = getDateXDaysAgo(1)
 
-const result = await jsonFetcher(
-  `https://stats.filspark.com/miners/retrieval-success-rate/summary?from=${start}&to=${end}`,
+const providersSummary = await jsonFetcher(
+  `https://stats.filspark.com/miners/retrieval-success-rate/summary?from=${startProviders}&to=${end}`,
 )
-const providerPaths = result.map((provider) => `/provider/${provider.miner_id}`)
-
+const clientsSummary = await jsonFetcher(
+  `https://stats.filspark.com/clients/retrieval-success-rate/summary?from=${startClients}&to=${end}`,
+)
+const providerPaths = providersSummary.map(
+  (provider) => `/provider/${provider.miner_id}`,
+)
+const clientPaths = clientsSummary.map(
+  (client) => `/client/${client.client_id}`,
+)
 // See https://observablehq.com/framework/config for documentation.
 export default {
   // The app’s title; used in the sidebar and webpage titles.
@@ -45,5 +53,5 @@ export default {
   // linkify: true, // convert URLs in Markdown to links
   // typographer: false, // smart quotes and other typographic improvements
   // cleanUrls: true, // drop .html from URLs
-  dynamicPaths: providerPaths,
+  dynamicPaths: [...providerPaths, ...clientPaths],
 }

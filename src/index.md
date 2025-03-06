@@ -24,6 +24,7 @@ const SparkMinerRsrSummaries = FileAttachment(
 const SparkRetrievalTimes = FileAttachment(
   './data/spark-retrieval-timings.json',
 ).json()
+const SparkClientRates = FileAttachment('./data/spark-clients-rsr.json').json()
 ```
 
 ```js
@@ -49,6 +50,13 @@ const tidySparkMinerRates = SparkMinerRates.sort(
     success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`,
   }
 })
+const tidySparkClientRates = SparkClientRates.sort(
+  (recordA, recordB) => recordB.success_rate - recordA.success_rate,
+).map((record) => ({
+  ...record,
+  success_rate: `${(record.success_rate * 100).toFixed(2)}%`,
+  success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`,
+}))
 ```
 
 <div class="hero">
@@ -317,7 +325,7 @@ ${JSON.stringify(
 <body>The following table shows the Spark RSR and TTFB values calculated in aggregate for each Filecoin Storage Provider over the past 30 days. Click on a miner id to view stats about this storage provider.</body>
 
 ```js
-const search = view(
+const searchMinerStats = view(
   Inputs.search(tidySparkMinerRates, {
     placeholder: 'Search Storage Providers…',
   }),
@@ -325,7 +333,24 @@ const search = view(
 ```
 
 <div class="card" style="padding: 0;">
-  ${Inputs.table(search, {rows: 16, format: {miner_id: id => htl.html`<a href=./provider/${id} target=_blank>${id}</a>`}})}
+  ${Inputs.table(searchMinerStats, {rows: 16, format: {miner_id: id => htl.html`<a href=./provider/${id} target=_blank>${id}</a>`}})}
+</div>
+
+<div class="divider"></div>
+
+<h4>Spark Client RSR Table</h4>
+<body>The following table shows the Spark RSR values calculated in aggregate for each Filecoin Storage Client over the past 30 days. Click on a client id to view stats about this storage client.</body>
+
+```js
+const searchClientStats = view(
+  Inputs.search(tidySparkClientRates, {
+    placeholder: 'Search Storage Clients...',
+  }),
+)
+```
+
+<div class="card" style="padding: 0;">
+  ${Inputs.table(searchClientStats, {rows: 16, format: {client_id: id => htl.html`<a href=./client/${id} target=_blank>${id}</a>`}})}
 </div>
 
 <style>
