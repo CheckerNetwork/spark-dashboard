@@ -12,6 +12,12 @@ export function Histogram(events, { width, title, thresholds }) {
     if (d.success_rate_http != null) {
       res.push({ type: 'HTTP only', value: d.success_rate_http * 100 })
     }
+    if (d.success_rate_http_head != null) {
+      res.push({
+        type: 'HTTP only w/ HEAD',
+        value: d.success_rate_http_head * 100,
+      })
+    }
     return res
   })
 
