@@ -150,12 +150,34 @@ const percentiles = Object.entries(SparkMinerRsrSummaries).flatMap(
           y: 'count_succes_rate',
           stroke: "type",
           curve: 'catmull-rom',
+          tip: {
+            format: {
+              x: d => new Date(d).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              }),
+              y: v => `${v} SPs`,
+              type: true
+            }
+          }
         }),
         Plot.line(nonZeroMinersOverTime, {
           x: 'day',
           y: 'count_succes_rate_http',
           stroke: "type",
           curve: 'catmull-rom',
+          tip: {
+            format: {
+              x: d => new Date(d).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              }),
+              y: v => v ? `${v} SPs` : 'N/A',
+              type: true
+            }
+          }
         })
       ]
     })}
@@ -175,7 +197,18 @@ const percentiles = Object.entries(SparkMinerRsrSummaries).flatMap(
           x: 'day',
           y: 'count_succes_rate',
           stroke: 'label',
-          curve: 'catmull-rom'
+          curve: 'catmull-rom',
+          tip: {
+            format: {
+              x: d => new Date(d).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              }),
+              y: v => `${v} SPs`,
+              label: true
+            }
+          }
         })
       ]
     })}
@@ -270,7 +303,18 @@ const tidy = clone(SparkRetrievalResultCodes).flatMap(({ day, rates }) => {
             fill: "code",
             offset: "normalize",
             sort: {color: null, x: "-y" },
-            interval: 'day'
+            interval: 'day',
+            tip: {
+              format: {
+                x: d => new Date(d).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                }),
+                y: v => `${(v * 100).toFixed(2)}%`,
+                code: true
+              }
+            }
           })
         ]
       })}
@@ -289,6 +333,16 @@ const tidy = clone(SparkRetrievalResultCodes).flatMap(({ day, rates }) => {
             x: 'day',
             y: 'ttfb_ms',
             stroke: "#FFBD3F",
+            tip: {
+              format: {
+                x: d => new Date(d).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                }),
+                y: v => `${v.toFixed(2)} ms`
+              }
+            }
           })
         ]
       })}

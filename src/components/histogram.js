@@ -40,6 +40,13 @@ export function Histogram(events, { width, title, thresholds }) {
         y: 'count',
         x: 'type',
         fill: 'type',
+        tip: {
+          format: {
+            threshold: (v) => `Range: ${v}%`,
+            count: (v) => `Count: ${v} miners`,
+            type: true
+          }
+        }
       }),
     ],
     y: { grid: true },
