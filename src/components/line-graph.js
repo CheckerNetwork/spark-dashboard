@@ -1,6 +1,9 @@
 import * as Plot from 'npm:@observablehq/plot'
 
-export function LineGraph(events, { width, height, title, start, end, fromZero } = {}) {
+export function LineGraph(
+  events,
+  { width, height, title, start, end, fromZero } = {},
+) {
   const startDate = new Date(start)
   const endDate = new Date(end)
   const filteredEvents = events.filter((event) => {
@@ -25,7 +28,13 @@ export function LineGraph(events, { width, height, title, start, end, fromZero }
     width,
     height,
     x: { type: 'utc', ticks: 'month', label: null },
-    y: { grid: true, inset: 10, label: 'RSR (%)', percent: true, zero: fromZero },
+    y: {
+      grid: true,
+      inset: 10,
+      label: 'RSR (%)',
+      percent: true,
+      zero: fromZero,
+    },
     color: { legend: true },
     marks: [
       Plot.lineY(combinedData, {
