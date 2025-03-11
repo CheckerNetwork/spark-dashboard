@@ -33,7 +33,7 @@ export function LineGraph(
       inset: 10,
       label: 'RSR (%)',
       percent: true,
-      zero: fromZero,
+      zero: fromZero ?? true,
     },
     color: { legend: true },
     marks: [
