@@ -44,9 +44,9 @@ export function Histogram(events, { width, title, thresholds }) {
           format: {
             threshold: (v) => `Range: ${v}%`,
             count: (v) => `Count: ${v} miners`,
-            type: true
-          }
-        }
+            type: true,
+          },
+        },
       }),
     ],
     y: { grid: true },

@@ -21,12 +21,13 @@ export function LineGraph(events, { width, height, title, start, end } = {}) {
   ]
 
   // Format functions for tooltip values
-  const formatDate = (d) => new Date(d).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  })
-  const formatPercent = (v) => v ? `${(v * 100).toFixed(2)}%` : 'N/A'
+  const formatDate = (d) =>
+    new Date(d).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
+  const formatPercent = (v) => (v ? `${(v * 100).toFixed(2)}%` : 'N/A')
 
   return Plot.plot({
     title,
@@ -45,9 +46,9 @@ export function LineGraph(events, { width, height, title, start, end } = {}) {
           format: {
             x: formatDate,
             y: formatPercent,
-            type: true
-          }
-        }
+            type: true,
+          },
+        },
       }),
       Plot.lineY(combinedData, {
         x: 'day',
@@ -58,9 +59,9 @@ export function LineGraph(events, { width, height, title, start, end } = {}) {
           format: {
             x: formatDate,
             y: formatPercent,
-            type: true
-          }
-        }
+            type: true,
+          },
+        },
       }),
     ],
   })
