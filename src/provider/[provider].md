@@ -33,7 +33,7 @@ const end = view(Inputs.date({ label: 'End', value: getDateXDaysAgo(1) }))
     <h4>Storage Provider Spark RSR Summary</h4>
     <body>This section shows the storage provider Spark Retrieval Success Rate Score summary.</body>
     <div class="card">${
-      resize((width) => LineGraph(rsrData, {width, title: "Retrieval Success Rate", start, end, fromZero: true }))
+      resize((width) => LineGraph(rsrData, {width, title: "Retrieval Success Rate", start, end }))
     }</div>
   </div>
   <div>
