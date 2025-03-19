@@ -60,7 +60,7 @@ const tidySparkClientRates = SparkClientRates.sort(
   return {
     ...record,
     success_rate: `${(record.success_rate * 100).toFixed(2)}%`,
-    success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`
+    success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`,
   }
 })
 ```
