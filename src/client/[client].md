@@ -1,17 +1,14 @@
 ---
 toc: false
-title: Storage Provider Summary
+title: Storage Client Summary
 ---
 
 ```js
 import { LineGraph } from '../components/line-graph.js'
 import { getDateXDaysAgo } from '../utils/date-utils.js'
 
-const rsrData = FileAttachment(
-  `../data/${observable.params.provider}-spark-rsr-summary.json`,
-).json()
-const ttfbData = FileAttachment(
-  `../data/${observable.params.provider}-spark-retrieval-timings-summary.json`,
+const data = FileAttachment(
+  `../data/${observable.params.client}-spark-client-rsr-summary.json`,
 ).json()
 ```
 
@@ -21,39 +18,28 @@ const ttfbData = FileAttachment(
     <body><a href="https://filspark.com/dashboard" target="_blank" rel="noopener noreferrer">(Click here for Legacy Spark Grafana Dashboard)</a><body>
 </div>
 
+<h4>Storage Client Spark RSR Summary</h4>
+<body>This section shows the storage client Spark Retrieval Success Rate Score summary. You can adjust the date range. Records start on the 25th February 2025.</body>
+
 ```js
-const start = view(Inputs.date({ label: 'Start', value: getDateXDaysAgo(180) }))
+const startDate = getDateXDaysAgo(180)
+const minStartDate = '2025-02-25'
+const start = view(
+  Inputs.date({
+    label: 'Start',
+    value:
+      new Date(startDate) >= new Date(minStartDate) ? startDate : minStartDate,
+  }),
+)
 const end = view(Inputs.date({ label: 'End', value: getDateXDaysAgo(1) }))
 ```
 
-<h3>Stats for ${observable.params.provider}</h3>
+<h3>Stats for ${observable.params.client}</h3>
 
-<div class="grid grid-cols-2" style="grid-auto-rows: 500px;">
-  <div>
-    <h4>Storage Provider Spark RSR Summary</h4>
-    <body>This section shows the storage provider Spark Retrieval Success Rate Score summary.</body>
-    <div class="card">${
-      resize((width) => LineGraph(rsrData, {width, title: "Retrieval Success Rate", start, end, fromZero: true }))
-    }</div>
-  </div>
-  <div>
-    <h4>Storage Provider Spark Time To First Byte (TTFB)</h4>
-    <body>The section shows the median of all TTFB values for successful retrieval checks of this storage provider.</body>
-    <div class="card">
-      ${Plot.plot({
-      title: 'Time to First Byte (ms)',
-      x: { type: 'utc', ticks: 'month' },
-      y: { grid: true, zero: true },
-      marks: [
-        Plot.lineY(ttfbData, {
-          x: 'day',
-          y: 'ttfb_ms',
-          stroke: "#FFBD3F",
-        })
-      ]
-    })}
-    </div>
-  </div>
+<div class="grid grid-cols" style="grid-auto-rows: 500px;">
+  <div class="card">${
+    resize((width) => LineGraph(data, {width, title: "Retrieval Success Rate", start, end }))
+  }</div>
 </div>
 
 <style>
