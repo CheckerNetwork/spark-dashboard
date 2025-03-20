@@ -311,7 +311,7 @@ const tidy = clone(SparkRetrievalResultCodes).flatMap(({ day, rates }) => {
                   month: 'short',
                   day: 'numeric'
                 }),
-                y: v => `${v.toFixed(2)}%`,
+                y: v => v.toFixed(2),
                 code: true
               }
             }
