@@ -27,7 +27,7 @@ export function LineGraph(events, { width, height, title, start, end } = {}) {
       month: 'short',
       day: 'numeric',
     })
-  const formatPercent = (v) => (v ? `${(v * 100).toFixed(2)}%` : 'N/A')
+  const formatPercent = (v) => (v ? `${v.toFixed(2)}%` : 'N/A')
 
   return Plot.plot({
     title,
