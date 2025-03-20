@@ -141,7 +141,7 @@ const percentiles = Object.entries(SparkMinerRsrSummaries).flatMap(
       ${Plot.plot({
       title: '# of Filecoin SPs with a non-zero Spark Retrieval Success Rate',
       x: { label: null },
-      y: { grid: true, label: null },
+      y: { grid: true, label: '# Non-Zero SPs' },
       color: { legend: true },
       marks: [
         Plot.ruleY([0]),
