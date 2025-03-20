@@ -327,7 +327,7 @@ const tidy = clone(SparkRetrievalResultCodes).flatMap(({ day, rates }) => {
         ${Plot.plot({
         title: 'Time to First Byte (ms)',
         x: { type: 'utc', ticks: 'month' },
-        y: { grid: true, zero: true},
+        y: { grid: true, zero: true, label: 'ttfb (ms)' },
         marks: [
           Plot.lineY(SparkRetrievalTimes, {
             x: 'day',
@@ -340,7 +340,7 @@ const tidy = clone(SparkRetrievalResultCodes).flatMap(({ day, rates }) => {
                   month: 'short',
                   day: 'numeric'
                 }),
-                y: v => `${v.toFixed(2)} ms`
+                y: v => v.toFixed(0)
               }
             }
           })
