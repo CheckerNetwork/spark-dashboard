@@ -294,7 +294,7 @@ const tidy = clone(SparkRetrievalResultCodes).flatMap(({ day, rates }) => {
         color: {
           scheme: "Accent",
           legend: "swatches",
-          label: "Codes"
+          label: "code"
         },
         marks: [
           Plot.rectY(tidy, {
