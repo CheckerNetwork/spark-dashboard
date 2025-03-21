@@ -21,6 +21,11 @@ export function LineGraph(
       success_rate_http: event.success_rate_http,
       type: 'HTTP only',
     })),
+    ...filteredEvents.map((event) => ({
+      day: event.day,
+      success_rate_http_head: event.success_rate_http_head,
+      type: 'HTTP only w/ HEAD',
+    })),
   ]
 
   // Format functions for tooltip values
@@ -62,6 +67,19 @@ export function LineGraph(
       Plot.lineY(combinedData, {
         x: 'day',
         y: 'success_rate_http',
+        stroke: 'type',
+        curve: 'linear',
+        tip: {
+          format: {
+            x: formatDate,
+            y: formatPercent,
+            type: true,
+          },
+        },
+      }),
+      Plot.lineY(combinedData, {
+        x: 'day',
+        y: 'success_rate_http_head',
         stroke: 'type',
         curve: 'linear',
         tip: {

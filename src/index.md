@@ -50,6 +50,7 @@ const tidySparkMinerRates = SparkMinerRates.sort(
     ttfb_ms,
     success_rate: `${(record.success_rate * 100).toFixed(2)}%`,
     success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`,
+    success_rate_http_head: `${(record.success_rate_http_head * 100).toFixed(2)}%`,
   }
 })
 const tidySparkClientRates = SparkClientRates.sort(
@@ -104,7 +105,7 @@ const end = view(Inputs.date({ label: 'End', value: getDateXDaysAgo(1) }))
     resize((width) => Histogram(SparkMinerRates, { width, title: "Retrieval Success Rate Buckets", thresholds: 10 }))
   }</div>
   <div class="card">${
-    resize((width) => Histogram(nonZeroSparkMinerRates.map((record) => ({success_rate: record.success_rate, success_rate_http: record.success_rate_http? record.success_rate_http: null})), { width, title: "Non-zero Miners: Retrieval Success Rate Buckets", thresholds: 10 }))
+    resize((width) => Histogram(nonZeroSparkMinerRates.map((record) => ({success_rate: record.success_rate, success_rate_http: record.success_rate_http? record.success_rate_http: null, success_rate_http_head: record.success_rate_http_head? record.success_rate_http_head: null})), { width, title: "Non-zero Miners: Retrieval Success Rate Buckets", thresholds: 10 }))
   }</div>
 </div>
 
@@ -134,6 +135,18 @@ const nonZeroMinersOverTime = Object.entries(SparkMinerRsrSummaries).flatMap(
           )
         : null,
       type: 'HTTP only',
+    },
+    {
+      day: new Date(day),
+      count_succes_rate_http_head: miners.some(
+        (m) => m.success_rate_http_head != null,
+      )
+        ? countAbove(
+            miners.map((m) => m.success_rate_http_head),
+            0,
+          )
+        : null,
+      type: 'HTTP only w/ HEAD',
     },
   ],
 )
