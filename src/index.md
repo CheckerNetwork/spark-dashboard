@@ -43,6 +43,8 @@ const tidySparkMinerRates = SparkMinerRates.sort(
   (recordA, recordB) => recordB.success_rate - recordA.success_rate,
 ).map((record) => {
   const { ttfb_ms } = sparkMinerRetrievalTimingsMap[record.miner_id] ?? {}
+  delete record.successful
+  delete record.successful_http
   return {
     ...record,
     ttfb_ms,
@@ -53,11 +55,15 @@ const tidySparkMinerRates = SparkMinerRates.sort(
 })
 const tidySparkClientRates = SparkClientRates.sort(
   (recordA, recordB) => recordB.success_rate - recordA.success_rate,
-).map((record) => ({
-  ...record,
-  success_rate: `${(record.success_rate * 100).toFixed(2)}%`,
-  success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`,
-}))
+).map((record) => {
+  delete record.successful
+  delete record.successful_http
+  return {
+    ...record,
+    success_rate: `${(record.success_rate * 100).toFixed(2)}%`,
+    success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`,
+  }
+})
 ```
 
 <div class="hero">
@@ -162,21 +168,43 @@ const percentiles = Object.entries(SparkMinerRsrSummaries).flatMap(
       ${Plot.plot({
       title: '# of Filecoin SPs with a non-zero Spark Retrieval Success Rate',
       x: { label: null },
-      y: { grid: true, label: null },
+      y: { grid: true, label: '# Non-Zero SPs' },
       color: { legend: true },
       marks: [
         Plot.ruleY([0]),
-        Plot.line(nonZeroMinersOverTime, {
+        Plot.lineY(nonZeroMinersOverTime, {
           x: 'day',
           y: 'count_succes_rate',
           stroke: "type",
           curve: 'catmull-rom',
+          tip: {
+            format: {
+              x: d => new Date(d).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              }),
+              y: v => `${v} SPs`,
+              type: true
+            }
+          }
         }),
-        Plot.line(nonZeroMinersOverTime, {
+        Plot.lineY(nonZeroMinersOverTime, {
           x: 'day',
           y: 'count_succes_rate_http',
           stroke: "type",
           curve: 'catmull-rom',
+          tip: {
+            format: {
+              x: d => new Date(d).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              }),
+              y: v => v ? `${v} SPs` : 'N/A',
+              type: true
+            }
+          }
         })
       ]
     })}
@@ -185,7 +213,7 @@ const percentiles = Object.entries(SparkMinerRsrSummaries).flatMap(
     ${Plot.plot({
       title: '# of Filecoin SPs with Spark Retrieval Success Rate above x%',
       x: { label: null },
-      y: { grid: true, label: null },
+      y: { grid: true, label: '# SPs above x%' },
       color: {
         scheme: "Paired",
         legend: "swatches"
@@ -196,7 +224,18 @@ const percentiles = Object.entries(SparkMinerRsrSummaries).flatMap(
           x: 'day',
           y: 'count_succes_rate',
           stroke: 'label',
-          curve: 'catmull-rom'
+          curve: 'catmull-rom',
+          tip: {
+            format: {
+              x: d => new Date(d).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              }),
+              y: v => `${v} SPs`,
+              label: true
+            }
+          }
         })
       ]
     })}
@@ -282,7 +321,7 @@ const tidy = clone(SparkRetrievalResultCodes).flatMap(({ day, rates }) => {
         color: {
           scheme: "Accent",
           legend: "swatches",
-          label: "Codes"
+          label: "code"
         },
         marks: [
           Plot.rectY(tidy, {
@@ -291,7 +330,18 @@ const tidy = clone(SparkRetrievalResultCodes).flatMap(({ day, rates }) => {
             fill: "code",
             offset: "normalize",
             sort: {color: null, x: "-y" },
-            interval: 'day'
+            interval: 'day',
+            tip: {
+              format: {
+                x: d => new Date(d).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                }),
+                y: v => v.toFixed(2),
+                code: true
+              }
+            }
           })
         ]
       })}
@@ -304,12 +354,22 @@ const tidy = clone(SparkRetrievalResultCodes).flatMap(({ day, rates }) => {
         ${Plot.plot({
         title: 'Time to First Byte (ms)',
         x: { type: 'utc', ticks: 'month' },
-        y: { grid: true, zero: true},
+        y: { grid: true, zero: true, label: 'ttfb (ms)' },
         marks: [
           Plot.lineY(SparkRetrievalTimes, {
             x: 'day',
             y: 'ttfb_ms',
             stroke: "#FFBD3F",
+            tip: {
+              format: {
+                x: d => new Date(d).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                }),
+                y: v => v.toFixed(0)
+              }
+            }
           })
         ]
       })}

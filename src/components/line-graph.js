@@ -28,6 +28,15 @@ export function LineGraph(
     })),
   ]
 
+  // Format functions for tooltip values
+  const formatDate = (d) =>
+    new Date(d).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
+  const formatPercent = (v) => (v ? `${v.toFixed(2)}%` : 'N/A')
+
   return Plot.plot({
     title,
     width,
@@ -47,12 +56,26 @@ export function LineGraph(
         y: 'success_rate',
         stroke: 'type',
         curve: 'linear',
+        tip: {
+          format: {
+            x: formatDate,
+            y: formatPercent,
+            type: true,
+          },
+        },
       }),
       Plot.lineY(combinedData, {
         x: 'day',
         y: 'success_rate_http',
         stroke: 'type',
         curve: 'linear',
+        tip: {
+          format: {
+            x: formatDate,
+            y: formatPercent,
+            type: true,
+          },
+        },
       }),
       Plot.lineY(combinedData, {
         x: 'day',
