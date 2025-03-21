@@ -82,6 +82,13 @@ export function LineGraph(
         y: 'success_rate_http_head',
         stroke: 'type',
         curve: 'linear',
+        tip: {
+          format: {
+            x: formatDate,
+            y: formatPercent,
+            type: true,
+          },
+        },
       }),
     ],
   })
