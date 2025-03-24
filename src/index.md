@@ -205,6 +205,23 @@ const percentiles = Object.entries(SparkMinerRsrSummaries).flatMap(
               type: true
             }
           }
+        }),
+        Plot.lineY(nonZeroMinersOverTime, {
+          x: 'day',
+          y: 'count_succes_rate_http_head',
+          stroke: "type",
+          curve: 'catmull-rom',
+          tip: {
+            format: {
+              x: d => new Date(d).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              }),
+              y: v => v ? `${v} SPs` : 'N/A',
+              type: true
+            }
+          }
         })
       ]
     })}
