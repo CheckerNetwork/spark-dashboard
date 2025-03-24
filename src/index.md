@@ -270,9 +270,6 @@ const mapping = {
     'BAD_GATEWAY',
     'GATEWAY_TIMEOUT'
   ],
-  'Graphsync timeout': [
-    'LASSIE_504'
-  ],
   'Graphsync error': [
     /^LASSIE_(?!504)/
   ],
@@ -290,8 +287,11 @@ const mapping = {
     'HOSTNAME_DNS_ERROR',
     'CONNECTION_REFUSED',
     'UNSUPPORTED_MULTIADDR_FORMAT',
+    /^HTTP_4/,
     /^ERROR_4/,
     'TIMEOUT',
+    'UNEXPECTED_CAR_BLOCK',
+    'LASSIE_504'
   ],
 }
 ```
