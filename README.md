@@ -55,3 +55,11 @@ A typical Framework project looks like this:
 | `npm run deploy`     | Deploy your app to Observable               |
 | `npm run clean`      | Clear the local data loader cache           |
 | `npm run observable` | Run commands like `observable help`         |
+
+## Troubleshooting
+
+In case the dashboard shows stale data, it can help to delete its cache:
+
+```console
+rm -rf src/.observablehq
+```
