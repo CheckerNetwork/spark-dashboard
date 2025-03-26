@@ -25,7 +25,9 @@ const SparkRetrievalTimes = FileAttachment(
   './data/spark-retrieval-timings.json',
 ).json()
 const SparkClientRates = FileAttachment('./data/spark-clients-rsr.json').json()
-const SparkAllocatorRates = FileAttachment('./data/spark-allocators-rsr.json').json()
+const SparkAllocatorRates = FileAttachment(
+  './data/spark-allocators-rsr.json',
+).json()
 ```
 
 ```js
@@ -459,7 +461,6 @@ const searchClientStats = view(
 
 <h4>Spark Allocator RSR Table</h4>
 <body>The following table shows the Spark RSR values calculated in aggregate for each Filecoin Storage Allocator over the past 30 days. Click on a allocator id to view stats about this storage allocator.</body>
-
 
 ```js
 const searchAllocatorStats = view(

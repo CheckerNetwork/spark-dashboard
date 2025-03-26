@@ -60,5 +60,5 @@ export default {
   // linkify: true, // convert URLs in Markdown to links
   // typographer: false, // smart quotes and other typographic improvements
   // cleanUrls: true, // drop .html from URLs
-  dynamicPaths: [...providerPaths, ...clientPaths,...allocatorPaths],
+  dynamicPaths: [...providerPaths, ...clientPaths, ...allocatorPaths],
 }
