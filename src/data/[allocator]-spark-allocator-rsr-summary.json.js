@@ -8,7 +8,7 @@ const {
 } = parseArgs({
   options: { allocator: { type: 'string' } },
 })
-const start = '2025-02-25'
+const start = '2025-03-26'
 const end = getDateXDaysAgo(1)
 const summary = await pRetry(
   () =>
