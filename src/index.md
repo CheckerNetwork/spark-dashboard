@@ -25,6 +25,9 @@ const SparkRetrievalTimes = FileAttachment(
   './data/spark-retrieval-timings.json',
 ).json()
 const SparkClientRates = FileAttachment('./data/spark-clients-rsr.json').json()
+const SparkAllocatorRates = FileAttachment(
+  './data/spark-allocators-rsr.json',
+).json()
 ```
 
 ```js
@@ -54,6 +57,17 @@ const tidySparkMinerRates = SparkMinerRates.sort(
   }
 })
 const tidySparkClientRates = SparkClientRates.sort(
+  (recordA, recordB) => recordB.success_rate - recordA.success_rate,
+).map((record) => {
+  delete record.successful
+  delete record.successful_http
+  return {
+    ...record,
+    success_rate: `${(record.success_rate * 100).toFixed(2)}%`,
+    success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`,
+  }
+})
+const tidySparkAllocatorRates = SparkAllocatorRates.sort(
   (recordA, recordB) => recordB.success_rate - recordA.success_rate,
 ).map((record) => {
   delete record.successful
@@ -441,6 +455,23 @@ const searchClientStats = view(
 
 <div class="card" style="padding: 0;">
   ${Inputs.table(searchClientStats, {rows: 16, format: {client_id: id => htl.html`<a href=./client/${id} target=_blank>${id}</a>`}})}
+</div>
+
+<div class="divider"></div>
+
+<h4>Spark Allocator RSR Table</h4>
+<body>The following table shows the Spark RSR values calculated in aggregate for each Filecoin Storage Allocator over the past 30 days. Click on a allocator id to view stats about this storage allocator.</body>
+
+```js
+const searchAllocatorStats = view(
+  Inputs.search(tidySparkAllocatorRates, {
+    placeholder: 'Search Storage Allocators...',
+  }),
+)
+```
+
+<div class="card" style="padding: 0;">
+  ${Inputs.table(searchAllocatorStats, {rows: 16, format: {allocator_id: id => htl.html`<a href=./allocator/${id} target=_blank>${id}</a>`}})}
 </div>
 
 <style>

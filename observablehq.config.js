@@ -3,6 +3,7 @@ import { getDateXDaysAgo } from './src/utils/date-utils.js'
 
 const startProviders = '2024-04-07'
 const startClients = '2025-02-25'
+const startAllocators = '2025-03-26'
 const end = getDateXDaysAgo(1)
 
 const providersSummary = await jsonFetcher(
@@ -11,11 +12,17 @@ const providersSummary = await jsonFetcher(
 const clientsSummary = await jsonFetcher(
   `https://stats.filspark.com/clients/retrieval-success-rate/summary?from=${startClients}&to=${end}`,
 )
+const allocatorsSummary = await jsonFetcher(
+  `https://stats.filspark.com/allocators/retrieval-success-rate/summary?from=${startAllocators}&to=${end}`,
+)
 const providerPaths = providersSummary.map(
   (provider) => `/provider/${provider.miner_id}`,
 )
 const clientPaths = clientsSummary.map(
   (client) => `/client/${client.client_id}`,
+)
+const allocatorPaths = allocatorsSummary.map(
+  (allocator) => `/allocator/${allocator.allocator_id}`,
 )
 // See https://observablehq.com/framework/config for documentation.
 export default {
@@ -53,5 +60,5 @@ export default {
   // linkify: true, // convert URLs in Markdown to links
   // typographer: false, // smart quotes and other typographic improvements
   // cleanUrls: true, // drop .html from URLs
-  dynamicPaths: [...providerPaths, ...clientPaths],
+  dynamicPaths: [...providerPaths, ...clientPaths, ...allocatorPaths],
 }
