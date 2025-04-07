@@ -1,5 +1,9 @@
-const { CLOUDFLARE_ACCOUNT_ID, PROJECT_NAME, CLOUDFLARE_API_TOKEN } =
-  process.env
+const {
+  // (this comment is needed to prevent Prettier from merging the lines below)
+  CLOUDFLARE_ACCOUNT_ID,
+  PROJECT_NAME,
+  CLOUDFLARE_API_TOKEN,
+} = process.env
 
 assert.ok(CLOUDFLARE_ACCOUNT_ID, 'CLOUDFLARE_ACCOUNT_ID is required')
 assert.ok(PROJECT_NAME, 'PROJECT_NAME is required')
