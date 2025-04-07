@@ -1,10 +1,11 @@
-name: Deploy Observable Dashboard to Cloudflare Pages
+name: Trigger Cloudflare Pages Deployment
 
 on:
   push:
     branches: [main]
   schedule:
     - cron: '0 4 * * *'
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -25,24 +26,15 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build project
-        run: npm run build # Assumes your project has a build script in package.json
+      - name: Trigger a new Cloudflare Pages deployment
+        run: node trigger-deployment.js
         env:
-          API_TOKEN: ${{ secrets.API_TOKEN }}
-
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: spark-dashboard # Replace with your Cloudflare Pages project name
-          directory: ./dist # Replace with your output directory after build
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT_NAME: spark-dashboard
 
       - if: failure()
         uses: slackapi/slack-github-action@v2.0.0
