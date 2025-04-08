@@ -443,6 +443,7 @@ const searchMinerStats = view(
 const minerStatsTable = Inputs.table(searchMinerStats, {
   rows: 16,
   format: {
+    total: (v) => v?.toString(),
     miner_id: (v) => htl.html`<a href=./provider/${v} target=_blank>${v}</a>`,
     ttfb_ms: (v) => v?.toFixed(0),
     success_rate: (v) => `${v?.toFixed(2)}%`,
@@ -480,6 +481,7 @@ const searchClientStats = view(
 const clientStatsTable = Inputs.table(searchClientStats, {
   rows: 16,
   format: {
+    total: (v) => v?.toString(),
     client_id: (v) => htl.html`<a href=./client/${v} target=_blank>${v}</a>`,
     success_rate: (v) => `${v?.toFixed(2)}%`,
     success_rate_http: (v) => `${v?.toFixed(2)}%`,
@@ -513,6 +515,7 @@ const searchAllocatorStats = view(
 const allocatorStatsTable = Inputs.table(searchAllocatorStats, {
   rows: 16,
   format: {
+    total: (v) => v?.toString(),
     allocator_id: (v) =>
       htl.html`<a href=./allocator/${v} target=_blank>${v}</a>`,
     success_rate: (v) => `${v?.toFixed(2)}%`,
