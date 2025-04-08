@@ -51,7 +51,7 @@ const tidySparkMinerRates = SparkMinerRates.sort(
   return {
     ...record,
     ttfb_ms,
-    total: BigInt(record.total),
+    total: Number(record.total),
     success_rate: record.success_rate * 100,
     success_rate_http: record.success_rate_http * 100,
     success_rate_http_head: record.success_rate_http_head * 100,
@@ -64,7 +64,7 @@ const tidySparkClientRates = SparkClientRates.sort(
   delete record.successful_http
   return {
     ...record,
-    total: BigInt(record.total),
+    total: Number(record.total),
     success_rate: record.success_rate * 100,
     success_rate_http: record.success_rate_http * 100,
   }
@@ -76,7 +76,7 @@ const tidySparkAllocatorRates = SparkAllocatorRates.sort(
   delete record.successful_http
   return {
     ...record,
-    total: BigInt(record.total),
+    total: Number(record.total),
     success_rate: record.success_rate * 100,
     success_rate_http: record.success_rate_http * 100,
   }
