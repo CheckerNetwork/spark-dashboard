@@ -45,7 +45,6 @@ const nonZeroSparkMinerRates = SparkMinerRates.filter(
 const tidySparkMinerRates = SparkMinerRates.sort(
   (recordA, recordB) => recordB.success_rate - recordA.success_rate,
 ).map((record) => {
-  console.log(record)
   const { ttfb_ms } = sparkMinerRetrievalTimingsMap[record.miner_id] ?? {}
   delete record.successful
   delete record.successful_http
