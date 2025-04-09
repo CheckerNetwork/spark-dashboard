@@ -28,11 +28,11 @@ jobs:
           cache: npm
 
       - name: Trigger a new Cloudflare Pages deployment
-        run: node scripts/trigger-deployment.js
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          PROJECT_NAME: spark-dashboard
+        run: |
+          curl --fail-with-body -X POST \
+            -H "Authorization: Bearer {{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            https://api.cloudflare.com/client/v4/accounts/{{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/spark-dashboard/deployments
 
       - if: failure()
         uses: slackapi/slack-github-action@v2.0.0
