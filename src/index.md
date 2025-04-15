@@ -51,9 +51,10 @@ const tidySparkMinerRates = SparkMinerRates.sort(
   return {
     ...record,
     ttfb_ms,
-    success_rate: `${(record.success_rate * 100).toFixed(2)}%`,
-    success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`,
-    success_rate_http_head: `${(record.success_rate_http_head * 100).toFixed(2)}%`,
+    total: Number(record.total),
+    success_rate: record.success_rate * 100,
+    success_rate_http: record.success_rate_http * 100,
+    success_rate_http_head: record.success_rate_http_head * 100,
   }
 })
 const tidySparkClientRates = SparkClientRates.sort(
@@ -63,8 +64,9 @@ const tidySparkClientRates = SparkClientRates.sort(
   delete record.successful_http
   return {
     ...record,
-    success_rate: `${(record.success_rate * 100).toFixed(2)}%`,
-    success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`,
+    total: Number(record.total),
+    success_rate: record.success_rate * 100,
+    success_rate_http: record.success_rate_http * 100,
   }
 })
 const tidySparkAllocatorRates = SparkAllocatorRates.sort(
@@ -74,8 +76,9 @@ const tidySparkAllocatorRates = SparkAllocatorRates.sort(
   delete record.successful_http
   return {
     ...record,
-    success_rate: `${(record.success_rate * 100).toFixed(2)}%`,
-    success_rate_http: `${(record.success_rate_http * 100).toFixed(2)}%`,
+    total: Number(record.total),
+    success_rate: record.success_rate * 100,
+    success_rate_http: record.success_rate_http * 100,
   }
 })
 ```
@@ -436,8 +439,29 @@ const searchMinerStats = view(
 )
 ```
 
+```js
+const minerStatsTable = Inputs.table(searchMinerStats, {
+  rows: 16,
+  format: {
+    total: (v) => v?.toString(),
+    miner_id: (v) => htl.html`<a href=./provider/${v} target=_blank>${v}</a>`,
+    ttfb_ms: (v) => v?.toFixed(0),
+    success_rate: (v) => `${v?.toFixed(2)}%`,
+    success_rate_http: (v) => `${v?.toFixed(2)}%`,
+    success_rate_http_head: (v) => `${v?.toFixed(2)}%`,
+  },
+  sort: {
+    ttfb_ms: 'asc',
+    success_rate: 'desc',
+    success_rate_http: 'desc',
+    success_rate_http_head: 'desc',
+    total: 'desc',
+  },
+})
+```
+
 <div class="card" style="padding: 0;">
-  ${Inputs.table(searchMinerStats, {rows: 16, format: {miner_id: id => htl.html`<a href=./provider/${id} target=_blank>${id}</a>`}})}
+  ${minerStatsTable}
 </div>
 
 <div class="divider"></div>
@@ -453,8 +477,25 @@ const searchClientStats = view(
 )
 ```
 
+```js
+const clientStatsTable = Inputs.table(searchClientStats, {
+  rows: 16,
+  format: {
+    total: (v) => v?.toString(),
+    client_id: (v) => htl.html`<a href=./client/${v} target=_blank>${v}</a>`,
+    success_rate: (v) => `${v?.toFixed(2)}%`,
+    success_rate_http: (v) => `${v?.toFixed(2)}%`,
+  },
+  sort: {
+    success_rate: 'desc',
+    success_rate_http: 'desc',
+    total: 'desc',
+  },
+})
+```
+
 <div class="card" style="padding: 0;">
-  ${Inputs.table(searchClientStats, {rows: 16, format: {client_id: id => htl.html`<a href=./client/${id} target=_blank>${id}</a>`}})}
+  ${clientStatsTable}
 </div>
 
 <div class="divider"></div>
@@ -470,8 +511,26 @@ const searchAllocatorStats = view(
 )
 ```
 
+```js
+const allocatorStatsTable = Inputs.table(searchAllocatorStats, {
+  rows: 16,
+  format: {
+    total: (v) => v?.toString(),
+    allocator_id: (v) =>
+      htl.html`<a href=./allocator/${v} target=_blank>${v}</a>`,
+    success_rate: (v) => `${v?.toFixed(2)}%`,
+    success_rate_http: (v) => `${v?.toFixed(2)}%`,
+  },
+  sort: {
+    success_rate: 'desc',
+    success_rate_http: 'desc',
+    total: 'desc',
+  },
+})
+```
+
 <div class="card" style="padding: 0;">
-  ${Inputs.table(searchAllocatorStats, {rows: 16, format: {allocator_id: id => htl.html`<a href=./allocator/${id} target=_blank>${id}</a>`}})}
+  ${allocatorStatsTable}
 </div>
 
 <style>
