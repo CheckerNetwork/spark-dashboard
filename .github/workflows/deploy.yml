@@ -27,12 +27,19 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Trigger a new Cloudflare Pages deployment
+      - name: Build project
         run: |
-          curl --fail-with-body -X POST \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/spark-dashboard/deployments
+          npm install
+          npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
       - if: failure()
         uses: slackapi/slack-github-action@v2.0.0
