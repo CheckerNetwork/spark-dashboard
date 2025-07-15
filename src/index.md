@@ -86,7 +86,6 @@ const tidySparkAllocatorRates = SparkAllocatorRates.sort(
 <div class="hero">
   <body><img src="media/spark-logomark-blue-with-bbox.png" alt="Spark Logo" width="300" /><body>
     <h2>Dashboard</h2>
-    <body><a href="https://filspark.com/dashboard" target="_blank" rel="noopener noreferrer">(Click here for Legacy Spark Grafana Dashboard)</a><body>
     <div class="grid grid-cols-2" >
       <div><a href="https://checker.network" ><img src="media/checker-with-bbox.png" alt="Checker Logo" width="100" /></a>
       </div>
