@@ -15,7 +15,6 @@ const data = FileAttachment(
 <div class="hero">
   <body><a href="/"><img src="../media/spark-logomark-blue-with-bbox.png" alt="Spark Logo" width="300" /></a><body>
     <h2>Dashboard Beta</h2>
-    <body><a href="https://filspark.com/dashboard" target="_blank" rel="noopener noreferrer">(Click here for Legacy Spark Grafana Dashboard)</a><body>
 </div>
 
 <h4>Storage Allocator Spark RSR Summary</h4>
