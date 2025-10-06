@@ -289,6 +289,9 @@ const mapping = {
   'Graphsync error': [
     /^LASSIE_(?!504)/
   ],
+  'IPNI Provider not found': [
+    'IPNI_PROVIDER_404',
+  ],
   'IPNI no advertisement': [
     'IPNI_ERROR_404',
     'IPNI_NO_VALID_ADVERTISEMENT',
@@ -305,6 +308,7 @@ const mapping = {
     'UNSUPPORTED_MULTIADDR_FORMAT',
     /^HTTP_4/,
     /^ERROR_4/,
+    /^IPNI_PROVIDER_/,
     'TIMEOUT',
     'UNEXPECTED_CAR_BLOCK',
     'LASSIE_504'
@@ -326,6 +330,7 @@ const tidy = clone(SparkRetrievalResultCodes).flatMap(({ day, rates }) => {
   move(rates, sorted, 'Graphsync error')
   move(rates, sorted, 'IPNI error')
   move(rates, sorted, 'IPNI no advertisement')
+  move(rates, sorted, 'IPNI Provider not found')
   for (const [key, value] of Object.entries(rates)) {
     if (key !== 'Other') {
       move(rates, sorted, key)
